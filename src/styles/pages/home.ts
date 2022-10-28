@@ -1,4 +1,5 @@
-import { styled } from "..";
+import { styled, theme } from "..";
+
 
 export const HomeContainer = styled('main',{
     display:'flex',
@@ -52,6 +53,9 @@ export const Product = styled('a',{
         strong: {
             fontSize: '$lg'
           },
+        span:{
+            color:"$green500"
+        }
  
     }
 })
