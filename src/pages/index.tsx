@@ -20,7 +20,7 @@ interface HomeProps {
   id: string;
   name:string;
   imgUrl:string;
-  price:number;
+  price:string;
   }[]
 }
 
