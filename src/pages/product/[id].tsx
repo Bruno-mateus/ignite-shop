@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import Stripe from "stripe"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/pages/product"
-
+import axios from "axios"
 interface ProductProps {
     product:{
     id: string;
@@ -13,6 +13,7 @@ interface ProductProps {
     imgUrl:string;
     price:string;
     description:string;
+    priceId:string;
     }
   }
 
@@ -22,6 +23,21 @@ export default function Product({product}:ProductProps){
   const {isFallback} = useRouter()
   if(isFallback){
     return <p>loading...</p>
+  }
+
+  async function handleToBuyProduct(){
+    try{
+     const response = await axios.post(`/api/checkout/`,{
+        priceId:product.priceId
+      })
+      
+      const {checkoutUrl} = response.data
+
+      window.location.href = checkoutUrl
+
+    }catch(err){
+      alert('Falha ao direcionar ao checkout')
+    }
   }
     return (
         <ProductContainer>
@@ -35,7 +51,7 @@ export default function Product({product}:ProductProps){
   
           <p>{product.description}</p>
   
-          <button>
+          <button onClick={handleToBuyProduct}>
             Comprar agora
           </button>
         </ProductDetails>
@@ -56,7 +72,7 @@ export const getStaticProps:GetStaticProps<any, {id:string}> = async({params})=>
         expand:['default_price']
     })
     const price = product.default_price as Stripe.Price
-
+console.log(price.id)
     return{
         props:{
             product:{
@@ -65,7 +81,8 @@ export const getStaticProps:GetStaticProps<any, {id:string}> = async({params})=>
                 imgUrl:product.images[0],
                 price:new Intl.NumberFormat('pt-br',{style:'currency',
                 currency:'BRL'}).format(price.unit_amount/100),
-                description:product.description
+                description:product.description,
+                priceId:price.id
             },
             revalidate:60*60*1 //1 hora
         }
