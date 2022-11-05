@@ -5,13 +5,14 @@ import {stripe} from '../lib/stripe'
 import Image from "next/image"
 
 
-import { useState } from "react"
+
 import { GetStaticProps } from "next"
 
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import Stripe from "stripe"
 import Link from "next/link"
+import Head from "next/head"
 
 
 
@@ -58,8 +59,9 @@ const [sliderRef] = useKeenSlider({
 })
 
   return (
-    
-<HomeContainer ref={sliderRef} className="keen-slider">
+    <>
+    <Head>Home | Ignite shop</Head>
+    <HomeContainer ref={sliderRef} className="keen-slider">
     {
       products.map(product =>{
         return(
@@ -75,7 +77,9 @@ const [sliderRef] = useKeenSlider({
 
       )})
     }
-</HomeContainer>
+  </HomeContainer>
+</>
+
   )
   
   
