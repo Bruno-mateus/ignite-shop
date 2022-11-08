@@ -26,7 +26,7 @@ export default function Success({customerName, product}:SuccessProps){
             <p>
                 Uhul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa 
             </p>
-            <a href="#">Voltar ao catálogo</a>
+            <a href="/">Voltar ao catálogo</a>
         </SuccessContainer>
             
         </>
@@ -50,7 +50,7 @@ export const getServerSideProps:GetServerSideProps =async ({query})=>{
         expand:['line_items','line_items.data.price.product']
     })
     const customerName = session.customer_details.name
-    const product = session.line_items.data[0].product as Stripe.Product
+    const product = session.line_items.data[0].price.product as Stripe.Product
     return{
         props:{
             customerName,

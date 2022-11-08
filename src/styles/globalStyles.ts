@@ -11,7 +11,7 @@ export const globalStyles = globalCss({
         height:'100vh'
     },
     'body':{
-        backgroundColor:"$gray800",
+        backgroundColor:"$gray900",
         color:"$gray100",
         '-webkit-font-smoothing':'antialiased',
     },
@@ -19,5 +19,10 @@ export const globalStyles = globalCss({
         '-webkit-font-smoothing':'antialiased',
         fontFamily:"Roboto, sans-serif",
         fontWeight:'400'
+    },
+    'button':{
+        '&:hover':{
+            cursor: 'pointer'
+        }
     }
 })
