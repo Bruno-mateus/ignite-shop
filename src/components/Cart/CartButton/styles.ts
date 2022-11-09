@@ -19,5 +19,22 @@ export const CartButtonContainer = styled('button',{
     fontWeight:'bold',
 
     width:'3rem',
-    height:'3rem'
+    height:'3rem',
+    variants:{
+        color:{
+          gray:{
+            background:'$gray900',
+            color:'$white'
+          },
+          green:{
+            background:'$green500',
+            color:'$white'
+          },
+        
+        },
+
+    },
+    defaultVariants:{
+        color:'gray'
+    }
 })

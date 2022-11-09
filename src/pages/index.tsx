@@ -13,16 +13,13 @@ import 'keen-slider/keen-slider.min.css'
 import Stripe from "stripe"
 import Link from "next/link"
 import Head from "next/head"
+import { CartButton } from "../components/Cart/CartButton"
+import { IProduct } from "../contexts/CartContext"
 
 
 
 interface HomeProps {
-  products:{
-  id: string;
-  name:string;
-  imgUrl:string;
-  price:string;
-  }[]
+  products:IProduct[];
 }
 
 
@@ -69,8 +66,12 @@ const [sliderRef] = useKeenSlider({
         <Product className="keen-slider__slide" >
           <Image  src={product.imgUrl} width={520} height={480} alt=""/>
           <footer>
-            <strong>{product.name}</strong>
-            <span>{product.price}</span>
+              <div>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </div>
+
+            <CartButton color={'green'}/>
           </footer>
         </Product>
       </Link>

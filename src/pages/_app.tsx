@@ -5,12 +5,14 @@ import { Container, Header } from "../styles/pages/app";
 import Image from "next/image";
 import Link from "next/link";
 import { Cart } from "../components/Cart";
+import { CartContextProvider } from "../contexts/CartContext";
 globalStyles();
 function MyApp({ Component, pageProps }:AppProps) {
 
 
   return (
-  <Container>
+  <CartContextProvider>
+      <Container>
     <Header>
       <Link href={"/"} >
         <Image src={logo} alt="" />
@@ -21,6 +23,8 @@ function MyApp({ Component, pageProps }:AppProps) {
       <Component {...pageProps}/>
    
    </Container>
+  </CartContextProvider>
+
    )
 }
 

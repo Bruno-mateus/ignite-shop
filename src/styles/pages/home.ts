@@ -50,11 +50,18 @@ export const Product = styled('a',{
         left: '0.25rem',
         right: '0.25rem',
         padding:'2rem',
-        strong: {
-            fontSize: '$lg'
-          },
+
         span:{
             color:"$green500"
+        },
+        div:{
+            display: 'flex',
+            flexDirection: 'column',
+            gap:'.25rem',
+            span:{
+                fontSize: '$lg',
+                fontWeight: 'bold'
+            }
         }
  
     }
