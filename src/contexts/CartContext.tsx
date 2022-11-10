@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react"
+import { createContext, ReactNode, useState } from "react"
 
 
 export interface IProduct{
@@ -6,7 +6,7 @@ export interface IProduct{
     name: string
     imgUrl: string
     price:string
-    numberPrice:string
+    numberPrice:number
     description:string
     defaultPrice:string 
 }
@@ -14,7 +14,9 @@ export interface IProduct{
 interface ContextData{
     cartItems:IProduct[]
     addCart:(product:IProduct) => void
-    checkItemAlreadyExists:(productId:string) =>boolean
+
+    cartTotal:number
+    removeItemCart:(product:IProduct) => void
 }
 
 interface CartContextProviderProps{
@@ -28,15 +30,21 @@ export const CartContext = createContext({}as ContextData)
 export function CartContextProvider({children}:CartContextProviderProps){
     const [cartItems,setCartItems] = useState<IProduct[]>([])
     
+    const cartTotal = cartItems.reduce((acc, item) =>{
+        console.log(item.numberPrice)
+       return acc + item.numberPrice
+    },0)
     function addCart(product:IProduct){
         setCartItems(state=>[...state,product])
     }
-    
-    function checkItemAlreadyExists(productId:string){
-        return cartItems.some(item=>item.id === productId)
+
+    function removeItemCart(product:IProduct){
+        setCartItems(state=>state.filter(item=> item.id != product.id))
     }
+    
+
     return(
-        <CartContext.Provider value={{cartItems,addCart,checkItemAlreadyExists}}>
+        <CartContext.Provider value={{cartItems,addCart,cartTotal,removeItemCart}}>
             {children}
         </CartContext.Provider>
     )

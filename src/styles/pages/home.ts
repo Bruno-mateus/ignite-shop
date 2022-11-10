@@ -50,7 +50,12 @@ export const Product = styled('a',{
         left: '0.25rem',
         right: '0.25rem',
         padding:'2rem',
-
+        small:{
+            position:'absolute',  
+            right: '2rem'  ,
+            top: '5.6rem',
+            color:'red'
+        },
         span:{
             color:"$green500"
         },

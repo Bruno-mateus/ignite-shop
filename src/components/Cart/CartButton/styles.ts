@@ -9,7 +9,7 @@ export const CartButtonContainer = styled('button',{
     position: 'relative',
     gap:'2rem',
 
-    '&disabled':{
+    '&:disabled':{
         opacity:0.6,
         cursor:'not-allowed'
     },

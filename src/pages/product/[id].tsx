@@ -5,41 +5,32 @@ import { useRouter } from "next/router"
 import Stripe from "stripe"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/pages/product"
-import axios from "axios"
+
 import Head from "next/head"
+import { useCart } from "../../hooks/useCart"
 interface ProductProps {
     product:{
-    id: string;
-    name:string;
-    imgUrl:string;
-    price:string;
-    description:string;
-    priceId:string;
+      id: string
+      name: string
+      imgUrl: string
+      price:string
+      numberPrice:number
+      description:string
+      defaultPrice:string 
     }
   }
 
 
 
 export default function Product({product}:ProductProps){
+  const {addCart,cartItems} = useCart()
   const {isFallback} = useRouter()
   if(isFallback){
     return <p>loading...</p>
   }
 
-  async function handleToBuyProduct(){
-    try{
-     const response = await axios.post(`/api/checkout/`,{
-        priceId:product.priceId
-      })
-      
-      const {checkoutUrl} = response.data
 
-      window.location.href = checkoutUrl
-
-    }catch(err){
-      alert('Falha ao direcionar ao checkout')
-    }
-  }
+const itemAlreadyAddInCart = cartItems.some(item=>item.id===product.id)
     return (
       <>
         <Head>{product.name} | Ignite shop</Head>
@@ -54,8 +45,8 @@ export default function Product({product}:ProductProps){
   
           <p>{product.description}</p>
   
-          <button onClick={handleToBuyProduct}>
-            Comprar agora
+          <button onClick={()=>addCart(product)} disabled={itemAlreadyAddInCart}>
+          {itemAlreadyAddInCart?'Item ja adicionado no carrinho':'Adicionar no carrinho'}
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -77,7 +68,7 @@ export const getStaticProps:GetStaticProps<any, {id:string}> = async({params})=>
         expand:['default_price']
     })
     const price = product.default_price as Stripe.Price
-console.log(price.id)
+
     return{
         props:{
             product:{
@@ -87,7 +78,8 @@ console.log(price.id)
                 price:new Intl.NumberFormat('pt-br',{style:'currency',
                 currency:'BRL'}).format(price.unit_amount/100),
                 description:product.description,
-                priceId:price.id
+                priceId:price.id,
+                numberPrice:price.unit_amount
             },
             revalidate:60*60*1 //1 hora
         }

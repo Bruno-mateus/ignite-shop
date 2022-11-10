@@ -82,10 +82,10 @@ export const CartItems = styled('main',{
 export const CartItem = styled('div',{
     display: 'flex',
     gap:'1.25rem',
-    
     img:{
         borderRadius:'8px',
-        objectFit:'cover'
+        objectFit:'cover',
+        background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
     },
     div:{
         display: 'flex',

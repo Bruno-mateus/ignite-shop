@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }:AppProps) {
       <Link href={"/"} >
         <Image src={logo} alt="" />
       </Link>
-      <Cart />
+      <Cart  />
     </Header>
  
       <Component {...pageProps}/>

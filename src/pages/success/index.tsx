@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
 import { ImageContainer } from "../../styles/pages/success";
@@ -26,7 +27,8 @@ export default function Success({customerName, product}:SuccessProps){
             <p>
                 Uhul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa 
             </p>
-            <a href="/">Voltar ao catálogo</a>
+
+            <Link  href="/"><p>Voltar ao catálogo</p></Link>
         </SuccessContainer>
             
         </>

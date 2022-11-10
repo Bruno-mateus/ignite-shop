@@ -15,7 +15,7 @@ import Link from "next/link"
 import Head from "next/head"
 import { CartButton } from "../components/Cart/CartButton"
 import { IProduct } from "../contexts/CartContext"
-
+import {useCart} from '../hooks/useCart'
 
 
 interface HomeProps {
@@ -34,7 +34,8 @@ export const getStaticProps:GetStaticProps = async ()=>{
       name:product.name,
       imgUrl:product.images[0],
       price:new Intl.NumberFormat('pt-br',{style:'currency',
-      currency:'BRL'}).format(price.unit_amount/100)
+      currency:'BRL'}).format(price.unit_amount/100),
+      numberPrice:price.unit_amount
     }
   })
   return {
@@ -54,6 +55,13 @@ const [sliderRef] = useKeenSlider({
     spacing:48
   }
 })
+const {addCart,cartItems} = useCart()
+
+function handleItem(e: React.MouseEvent<HTMLButtonElement>,product:IProduct){
+  e.preventDefault()
+console.log(product)
+  addCart(product)
+}
 
   return (
     <>
@@ -71,8 +79,11 @@ const [sliderRef] = useKeenSlider({
                 <span>{product.price}</span>
               </div>
 
-            <CartButton color={'green'}/>
+            <CartButton color={'green'} onClick={(e)=>handleItem(e,product)} disabled={cartItems.some(item=>item.id===product.id)}/>
+            {cartItems.some(item=>item.id===product.id)&&<small>Item ja adicionado</small>}
+           
           </footer>
+         
         </Product>
       </Link>
 
