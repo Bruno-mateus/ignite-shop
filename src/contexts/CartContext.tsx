@@ -36,6 +36,7 @@ export function CartContextProvider({children}:CartContextProviderProps){
     },0)
     function addCart(product:IProduct){
         setCartItems(state=>[...state,product])
+        console.log(product)
     }
 
     function removeItemCart(product:IProduct){

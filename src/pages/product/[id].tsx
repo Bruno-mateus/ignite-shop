@@ -79,7 +79,8 @@ export const getStaticProps:GetStaticProps<any, {id:string}> = async({params})=>
                 currency:'BRL'}).format(price.unit_amount/100),
                 description:product.description,
                 priceId:price.id,
-                numberPrice:price.unit_amount
+                numberPrice:price.unit_amount,
+               
             },
             revalidate:60*60*1 //1 hora
         }

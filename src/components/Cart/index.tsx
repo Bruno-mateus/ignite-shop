@@ -5,11 +5,32 @@ import {X} from 'phosphor-react'
 import Image from "next/image";
 
 import { useCart } from "../../hooks/useCart";
+import { useState } from "react";
+import axios from "axios";
 
 
 export function Cart(){
 
     const {cartItems,cartTotal,removeItemCart} = useCart()
+
+    const [isCreatingCheckoutSession,setIsCreatingCheckoutSession] = useState(false)
+
+    async function handleCheckout(){
+        try{
+            setIsCreatingCheckoutSession(true)
+
+            const response = await axios.post('/api/checkout',{
+                products:cartItems
+            })
+            const {checkoutUrl} = response.data
+
+            window.location.href=checkoutUrl
+        }catch(err){
+            
+            setIsCreatingCheckoutSession(false)
+            alert("Falha ao rediricionar ao carrinho, tente novamente mais tarde")
+        }
+    }
     return (
         <Dialog.Root>
             <Dialog.Trigger asChild>
@@ -59,7 +80,7 @@ export function Cart(){
                                          currency:'BRL'}).format(cartTotal/100)
                                          }</span>
                                 </strong>
-                                <button>Finalizar compra</button>
+                                <button onClick={handleCheckout} disabled={isCreatingCheckoutSession || cartItems.length <= 0}>Finalizar compra</button>
                             </InfoOrder>
                        
                    </CartContent>

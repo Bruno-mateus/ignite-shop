@@ -35,7 +35,8 @@ export const getStaticProps:GetStaticProps = async ()=>{
       imgUrl:product.images[0],
       price:new Intl.NumberFormat('pt-br',{style:'currency',
       currency:'BRL'}).format(price.unit_amount/100),
-      numberPrice:price.unit_amount
+      numberPrice:price.unit_amount,
+      defaultPrice:price.id
     }
   })
   return {
@@ -59,7 +60,7 @@ const {addCart,cartItems} = useCart()
 
 function handleItem(e: React.MouseEvent<HTMLButtonElement>,product:IProduct){
   e.preventDefault()
-console.log(product)
+
   addCart(product)
 }
 

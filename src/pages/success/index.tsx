@@ -9,23 +9,24 @@ import { SuccessContainer } from "../../styles/pages/success";
 
 interface SuccessProps{
     customerName:string;
-    product:{
-        name:string;
-        imageUrl:string;
-    }
+    productsImages:string[]
 }
 
-export default function Success({customerName, product}:SuccessProps){
+export default function Success({customerName, productsImages}:SuccessProps){
     return (
         <>
          <Head>Compra efetuada | Ignite shop</Head>
          <SuccessContainer>
             <h1>Compra efetuada</h1>
-            <ImageContainer>
-                <Image src={product.imageUrl} width={120} height={110} alt=""/>
-            </ImageContainer>
+                {productsImages.map(productImage=>{
+                    return (
+                        <ImageContainer>
+                        <Image src={productImage} width={120} height={110} alt=""/>
+                    </ImageContainer>
+                    )
+                })}
             <p>
-                Uhul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa 
+                Uhul <strong>{customerName}</strong>, {productsImages.length>0 ? 'seus items':'seu item'} {productsImages.length>0 ? 'ja estão':'ja está'} a caminho da sua casa 
             </p>
 
             <Link  href="/"><p>Voltar ao catálogo</p></Link>
@@ -52,14 +53,14 @@ export const getServerSideProps:GetServerSideProps =async ({query})=>{
         expand:['line_items','line_items.data.price.product']
     })
     const customerName = session.customer_details.name
-    const product = session.line_items.data[0].price.product as Stripe.Product
+   const productsImages = session.line_items.data.map(item=>{
+    const product = item.price.product as Stripe.Product
+    return product.images[0]
+   })
     return{
         props:{
             customerName,
-            product:{
-                name:product.name,
-                imageUrl:product.images[0]
-            }
+            productsImages
         }
     }
 }
