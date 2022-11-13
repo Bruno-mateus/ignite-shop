@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
-import { ImageContainer } from "../../styles/pages/success";
+import { ImageContainer, ItemsList } from "../../styles/pages/success";
 import { SuccessContainer } from "../../styles/pages/success";
 
 interface SuccessProps{
@@ -18,13 +18,15 @@ export default function Success({customerName, productsImages}:SuccessProps){
          <Head>Compra efetuada | Ignite shop</Head>
          <SuccessContainer>
             <h1>Compra efetuada</h1>
+            <ItemsList>
                 {productsImages.map(productImage=>{
                     return (
-                        <ImageContainer>
+                    <ImageContainer key={productImage}>
                         <Image src={productImage} width={120} height={110} alt=""/>
                     </ImageContainer>
                     )
                 })}
+            </ItemsList>
             <p>
                 Uhul <strong>{customerName}</strong>, {productsImages.length>0 ? 'seus items':'seu item'} {productsImages.length>0 ? 'ja estão':'ja está'} a caminho da sua casa 
             </p>

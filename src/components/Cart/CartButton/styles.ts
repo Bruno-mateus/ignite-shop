@@ -5,16 +5,20 @@ export const CartButtonContainer = styled('button',{
     alignItems: 'center',
     justifyContent: 'center',
     border:'none',
+    posistion:'relative',
     borderRadius:6,
     position: 'relative',
+    
     gap:'2rem',
-
+    svg:{
+      position:'absolute'
+    },
     '&:disabled':{
         opacity:0.6,
         cursor:'not-allowed'
     },
 
-    backgroundColor:'$gray800',
+   
     color:'$gray300',
     fontWeight:'bold',
 
@@ -23,7 +27,7 @@ export const CartButtonContainer = styled('button',{
     variants:{
         color:{
           gray:{
-            background:'$gray900',
+            background:'$gray800',
             color:'$white'
           },
           green:{
@@ -37,4 +41,18 @@ export const CartButtonContainer = styled('button',{
     defaultVariants:{
         color:'gray'
     }
+})
+
+export const PopUp= styled('div',{
+  background:'red',
+  
+  width:'1rem',
+  height:'1rem',
+  borderRadius:'50%',
+  display:'flex',
+  position:'absolute',
+  alignItems: 'center',
+  justifyContent: 'center',
+  top:-1,
+  right:-4
 })

@@ -80,7 +80,7 @@ function handleItem(e: React.MouseEvent<HTMLButtonElement>,product:IProduct){
                 <span>{product.price}</span>
               </div>
 
-            <CartButton color={'green'} onClick={(e)=>handleItem(e,product)} disabled={cartItems.some(item=>item.id===product.id)}/>
+            <CartButton hasPopUp={false} color={'green'} onClick={(e)=>handleItem(e,product)} disabled={cartItems.some(item=>item.id===product.id)}/>
             {cartItems.some(item=>item.id===product.id)&&<small>Item ja adicionado</small>}
            
           </footer>

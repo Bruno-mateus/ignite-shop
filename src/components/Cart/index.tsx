@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useCart } from "../../hooks/useCart";
 import { useState } from "react";
 import axios from "axios";
+import { PopUp } from "./CartButton/styles";
 
 
 export function Cart(){
@@ -33,8 +34,12 @@ export function Cart(){
     }
     return (
         <Dialog.Root>
+      
             <Dialog.Trigger asChild>
-                <CartButton/>
+            
+              
+                   
+                <CartButton hasPopUp/>
             </Dialog.Trigger>
 
             <Dialog.Portal>
