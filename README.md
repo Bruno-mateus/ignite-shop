@@ -2,22 +2,37 @@
 
 ## Getting Started
 
-First, clone this repository
+Primeiro, clone este repositorio
 
-run 
+rode 
 ```bash
 npm 
 # or
 yarn 
 ```
-Run the development server:
+Para iniciar rode no terminal npm run dev:
 ```bash
+npm run build
 npm run dev
 # or
+yarn dev build
 yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+Necessario criar uma conta no Stripe
+
+App feito com a API do stripe para criar um mini e-commerce
+
+foi utilizado:
+
+- Nextjs
+- stitches
+- API stripe
+- Radix
+- KeenSlider
 
 
 
