@@ -44,8 +44,8 @@ export const CartButtonContainer = styled('button',{
 })
 
 export const PopUp= styled('div',{
-  background:'red',
-  
+  background:'#b51818',
+  fontSize:'.7rem',
   width:'1rem',
   height:'1rem',
   borderRadius:'50%',

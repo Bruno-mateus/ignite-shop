@@ -1,5 +1,6 @@
 import { Handbag } from "phosphor-react";
-import { ComponentProps } from "react";
+import { ComponentProps, useContext } from "react";
+import { CartContext } from "../../../contexts/CartContext";
 import { CartButtonContainer, PopUp } from "./styles";
 
 interface PopUpProps extends CartProps { 
@@ -9,12 +10,13 @@ interface PopUpProps extends CartProps {
 type CartProps = ComponentProps<typeof CartButtonContainer>
 
 export function CartButton({...rest}:PopUpProps){
+    const {cartItems} = useContext(CartContext)
     const {hasPopUp} = rest
     return(
         hasPopUp?(
         <CartButtonContainer {...rest}>
             <Handbag size={24}/>
-            <PopUp>0</PopUp>
+            <PopUp>{cartItems.length}</PopUp>
         </CartButtonContainer>
         ):(
         <CartButtonContainer {...rest}>
