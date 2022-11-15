@@ -1,8 +1,16 @@
 
+o APP
+
+https://user-images.githubusercontent.com/63961258/201803005-faaef46e-5603-46d9-92c0-04bb98aa4d68.mp4
+
+
 
 ## Getting Started
 
 Primeiro, clone este repositorio
+
+
+
 
 rode 
 ```bash
